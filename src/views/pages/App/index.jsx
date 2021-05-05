@@ -13,6 +13,8 @@ function App() {
         <Route path="/" exact component={Login} />
         <PrivateRoute path="/dashboard" exact component={Dashboard} />
         <PrivateRoute path="/check" exact component={CustomModal} />
+        <Route path="/login" exact component={Login} />
+        <PrivateRoute path="/" exact component={Dashboard} />
       </Switch>
     </BrowserRouter>
   )
