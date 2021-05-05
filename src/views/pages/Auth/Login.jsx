@@ -5,13 +5,31 @@ import { Image } from '@chakra-ui/image'
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/input'
 import { Flex } from '@chakra-ui/layout'
 import { Box, Center, Heading, Stack, Text } from '@chakra-ui/layout'
-import React, { useState } from 'react'
+import { Collapse } from '@chakra-ui/transition'
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router'
 import LoginSVG from '../../../assets/login.svg'
 import MaitLogo from '../../../assets/mait.png'
+import { authenticateUser } from '../../../store/auth'
 
 function Login() {
+  const [openOtp, setOpenOtp] = useState(false)
+  const history = useHistory();
+
+  const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(authenticateUser(false))
+  // }, [])
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    setOpenOtp(true);
+    if (openOtp) {
+      dispatch(authenticateUser(true))
+      history.push('/')
+    }
   }
 
   return (
@@ -20,37 +38,49 @@ function Login() {
         bgColor="#fff"
       >
         <Flex>
-          <Center w='50%'>
+          <Center w='50%' minH='80vh'>
             <Image src={LoginSVG}
-              boxSize="300px"
+              boxSize="500px"
               objectFit="cover"
             />
           </Center>
 
           <Box flex="1" p="4rem">
-            <form onSubmit={handleSubmit}>
-              <FormControl id="mobile" isRequired>
-                <FormLabel >Enter Mobile Number</FormLabel>
+            <FormControl isRequired>
+              <FormLabel >Enter Mobile Number</FormLabel>
+              <InputGroup >
+                <InputLeftElement
+                  pointerEvents="none"
+                  children={<PhoneIcon color="gray.300" />}
+                />
+                <Input size="md" variant="filled"
+                  type="tel"
+                  placeholder="+91 xxxxxxxxx"
+                />
+              </InputGroup>
+            </FormControl>
+            <br />
+            <FormControl isRequired>
+              <Collapse in={openOtp} animateOpacity>
+                <FormLabel >Enter OTP</FormLabel>
                 <InputGroup >
-                  <InputLeftElement
-                    pointerEvents="none"
-                    children={<PhoneIcon color="gray.300" />}
-                  />
                   <Input size="md" variant="filled"
-                    type="tel"
-                    placeholder="+91 xxxxxxxxx"
+                    placeholder="OTP"
                   />
                 </InputGroup>
-                <Button
-                  my="1rem"
-                  width="100%"
-                  colorScheme="yellow"
-                  type='submit'
-                >
-                  Get OTP
-              </Button>
-              </FormControl>
-            </form>
+              </Collapse>
+            </FormControl>
+            <br />
+
+            <Button
+              my="1rem"
+              width="100%"
+              colorScheme="yellow"
+              onClick={handleSubmit}
+            >
+              {!openOtp ? "Get OTP" : "Verify and Proceed"}
+            </Button>
+
           </Box>
         </Flex>
       </Box>
