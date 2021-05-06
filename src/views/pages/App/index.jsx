@@ -6,6 +6,7 @@ import { setCurUser } from '../../../store/auth';
 import PrivateRoute from '../../containers/PrivateRoute';
 import Login from '../Auth/Login';
 import Dashboard from '../Dashboard';
+import DonorList from '../DonorDataDisplay/DonorList';
 
 
 function App() {
@@ -23,6 +24,8 @@ function App() {
       <Switch>
         <Route path="/login" exact component={Login} />
         <PrivateRoute path="/" exact component={Dashboard} />
+        <Route path="/donorlist" exact component={DonorList} />
+
       </Switch>
     </BrowserRouter>
   )
