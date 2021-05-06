@@ -1,19 +1,15 @@
 import { Button } from '@chakra-ui/button'
-import { ChevronDownIcon, ChevronUpIcon, RepeatClockIcon } from '@chakra-ui/icons'
+import { ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons'
 import { Image } from '@chakra-ui/image'
 import {
-  Avatar,
-  Box, Center, Collapse, Divider, Flex, Heading, HStack, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text, Tooltip, VStack, Wrap, WrapItem
+  Box, Collapse, Divider, Flex, Heading, HStack, Text, Tooltip, VStack, Wrap, WrapItem
 } from "@chakra-ui/react"
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import BloodDrop from '../../../assets/bloodDrop.svg'
 import Doctor from '../../../assets/doctor.svg'
-import TakerLogo from '../../../assets/Icons/health-care.svg'
-import LogOutLogo from '../../../assets/Icons/logout.svg'
-import DonorLogo from '../../../assets/Icons/organ-donation.svg'
-import ProfileLogo from '../../../assets/Icons/profile-user.svg'
-import Logo from '../../../assets/MAU-logo.png'
+import DonorLogo from '../../../assets/Icons/health-care.svg'
+import TakerLogo from '../../../assets/Icons/organ-donation.svg'
 import Oxygen from '../../../assets/oxygen.svg'
 import PlasmaDrop from '../../../assets/plasmaDrop.svg'
 import Footer from '../../components/Footer'
@@ -60,7 +56,7 @@ export default function Dashboard() {
                 <Heading size="md" flex="1"
                   color={!isDonor ? "grey" : 'default'}
                 >
-                  I am looking to donate
+                  Become a Donor
                 </Heading>
               </HStack>
             </Button>
@@ -93,7 +89,7 @@ export default function Dashboard() {
                 </Wrap>
               </Box>
 
-              {/* <Box my='10px' mx='2' height="180px" borderWidth="2px">
+              <Box my='10px' mx='2' height="180px" borderWidth="2px">
                 <HStack spacing='10' p="4" height='100%'>
                   {Object.keys(DonorLayer).map(type => (
                     <Box p='5' borderWidth="1px" height='100%'>
@@ -101,7 +97,7 @@ export default function Dashboard() {
                     </Box>
                   ))}
                 </HStack>
-              </Box> */}
+              </Box>
 
             </Collapse>
 
@@ -118,7 +114,7 @@ export default function Dashboard() {
                 <Heading size="md" flex="1"
                   color={isDonor ? "grey" : 'default'}
                 >
-                  I am looking for donor
+                  Looking for Donor
                 </Heading>
               </HStack>
             </Button>
@@ -151,6 +147,15 @@ export default function Dashboard() {
                     </Tooltip>
                   ))}
                 </Wrap>
+              </Box>
+              <Box my='10px' mx='2' height="180px" borderWidth="2px">
+                <HStack spacing='10' p="4" height='100%'>
+                  {Object.keys(DonorLayer).map(type => (
+                    <Box p='5' borderWidth="1px" height='100%'>
+                      Plasma Available contact: xxxx
+                    </Box>
+                  ))}
+                </HStack>
               </Box>
             </Collapse>
           </Flex>

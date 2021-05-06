@@ -1,14 +1,7 @@
-import { RepeatClockIcon } from '@chakra-ui/icons'
-import { Image } from '@chakra-ui/image'
 import {
-  Avatar,
-  Box, Center, Flex, Heading, HStack, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text
+  Box, Center, Text
 } from "@chakra-ui/react"
 import React from 'react'
-import { useLocation } from 'react-router'
-import LogOutLogo from '../../../assets/Icons/logout.svg'
-import ProfileLogo from '../../../assets/Icons/profile-user.svg'
-import Logo from '../../../assets/MAU-logo.png'
 
 export default function Footer() {
 

@@ -2,7 +2,7 @@ import { RepeatClockIcon } from '@chakra-ui/icons'
 import { Image } from '@chakra-ui/image'
 import {
   Avatar,
-  Box, Center, Flex, Heading, HStack, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text
+  Flex, Heading, HStack, Menu, MenuButton, MenuDivider, MenuItem, MenuList
 } from "@chakra-ui/react"
 import React from 'react'
 import { Link } from 'react-router-dom'

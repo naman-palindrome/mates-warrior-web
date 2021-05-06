@@ -1,11 +1,10 @@
-import { Button } from '@chakra-ui/button'
-import { Box, Text, VStack } from '@chakra-ui/layout'
-import { Table, TableCaption, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/table'
+import { Box } from '@chakra-ui/layout'
+import { Table, Tbody, Td, Tr } from '@chakra-ui/table'
 import React from 'react'
 
 function DataCard() {
   return (
-    <Box borderRadius="lg"
+    <Box borderRadius="md"
       borderWidth='2px'
     >
       <Table variant="striped" size="sm">
