@@ -6,6 +6,7 @@ import {
   Box, Center, Collapse, Divider, Flex, Heading, HStack, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text, Tooltip, VStack, Wrap, WrapItem
 } from "@chakra-ui/react"
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import BloodDrop from '../../../assets/bloodDrop.svg'
 import Doctor from '../../../assets/doctor.svg'
 import TakerLogo from '../../../assets/Icons/health-care.svg'
@@ -15,6 +16,8 @@ import ProfileLogo from '../../../assets/Icons/profile-user.svg'
 import Logo from '../../../assets/MAU-logo.png'
 import Oxygen from '../../../assets/oxygen.svg'
 import PlasmaDrop from '../../../assets/plasmaDrop.svg'
+import Footer from '../../components/Footer'
+import NavBar from '../../components/NavBar'
 import FormModals from './Modals'
 
 const DonorLayer = {
@@ -34,52 +37,16 @@ export default function Dashboard() {
   const closeModal = () => { setOpenModal(null) };
 
   return (
-    <>
+    <Flex direction="column" minH="100vh">
       {/* NAVBAR */}
       <FormModals
         open={!!openModal}
         onClose={closeModal}
         id={openModal}
       />
-      <Flex
-        justify="space-between"
-        align="center"
-        py="0.5rem"
-        px="5vw"
-        w="100%"
-        colorScheme="yellow"
-        background='var(--chakra-colors-yellow-400)'
-        boxShadow="md"
-      >
-        <HStack spacing="5">
-          <Image src={Logo} boxSize="40px" />
-          <Heading as="h1" size="md" >MATES Warriors</Heading>
-        </HStack>
-        <Menu>
-          <MenuButton>
-            <Avatar size="md"
-              showBorder="true"
-              src="https://bit.ly/kent-c-dodds"
-            />
-          </MenuButton>
-          <MenuList>
-            <MenuItem icon={<Image src={ProfileLogo} boxSize="1.2rem" />} >
-              <strong>Profile</strong>
-            </MenuItem>
-            <MenuItem icon={<RepeatClockIcon fontSize="1.2rem" />} >
-              <strong>History</strong>
-            </MenuItem>
-            <MenuDivider />
-            <MenuItem color="red.500" icon={<Image src={LogOutLogo} boxSize="1.2rem" />}>
-              <strong>LogOut</strong>
-            </MenuItem>
-          </MenuList>
-        </Menu>
-
-      </Flex>
-
+      <NavBar />
       {/* MAIN DASHBOARD */}
-      <Center mt="8" >
+      <Box mx="auto" my="8" flex="1" >
         <Box p="6" w={{ base: '100vw', md: '90vw' }} borderWidth="1px" borderRadius="lg" bgColor="#fff" >
           <Flex flexDirection='column'>
             <Button style={{ display: 'flex', justifyContent: 'space-between' }}
@@ -163,7 +130,9 @@ export default function Dashboard() {
                       label="Coming Soon" fontSize="md"
                     >
                       <WrapItem>
-                        <Button onClick={() => setOpenModal(type)}
+                        <Button
+                          as={Link}
+                          to={`/donors?type=${type}`}
                           disabled={type === 'consultancy'}
                           variant="outline"
                           _focus={{ borderColor: "var(--chakra-colors-yellow-400)" }}
@@ -186,18 +155,11 @@ export default function Dashboard() {
             </Collapse>
           </Flex>
         </Box>
-      </Center>
+      </Box>
 
 
       {/* Footer */}
-      <div style={{ padding: "40px" }}></div>
-      <Box bg="yellow.100" width="100%" p="3" position="fixed" bottom="0">
-        <Center>
-          <Text fontSize='sm'>
-            Copyright &copy; <b>Maharaja Agrasen Technical Society 2021</b>
-          </Text>
-        </Center>
-      </Box>
-    </>
+      <Footer />
+    </Flex>
   )
 }
