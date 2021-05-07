@@ -22,26 +22,26 @@ export default function PlasmaDonor() {
           objectFit="cover"
         />
       </Center>
-      <FormControl mt={4}>
-        <FormLabel>Check Eligibility</FormLabel>
-        <Checkbox colorScheme="blue" >
-          I am eligible for plasma donation
-        </Checkbox>
-      </FormControl>
 
       <FormControl mt={4}>
+        <FormLabel >Full Name</FormLabel>
         <Input variant='filled' placeholder="Name" />
       </FormControl>
       <FormControl mt={4}>
+        <FormLabel >City</FormLabel>
         <Input variant='filled' placeholder="City" />
       </FormControl>
       <FormControl mt={4}>
-        <Input variant='filled' placeholder="Pin-Code" />
+        <FormLabel >Pin Code</FormLabel>
+        <Input variant='filled' placeholder="Pin Code" />
       </FormControl>
       <FormControl mt={4}>
+        <FormLabel >Phone Number</FormLabel>
         <Input variant='filled' placeholder="Phone Number" />
       </FormControl>
+
       <FormControl mt={4}>
+        <FormLabel >BloodGroup</FormLabel>
         <Select variant='filled' placeholder="Select BloodGroup">
           {bloodgroups.map(item => {
             return (
@@ -50,8 +50,17 @@ export default function PlasmaDonor() {
           })}
         </Select>
       </FormControl>
+
       <FormControl mt={4} >
+        <FormLabel >Mates Affiliation <small>(if any)</small></FormLabel>
         <Input variant='filled' placeholder="Mates Affiliation" />
+      </FormControl>
+
+
+      <FormControl mt={4} ml="2">
+        <Checkbox colorScheme="blue" >
+          I am eligible for plasma donation
+        </Checkbox>
       </FormControl>
     </>
   )

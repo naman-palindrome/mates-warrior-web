@@ -1,6 +1,8 @@
 import {
   Center, FormControl,
+  FormLabel,
   Image, Input,
+  ListItem,
   Select
 } from "@chakra-ui/react";
 import React from "react";
@@ -21,13 +23,20 @@ export default function OxygenDonor() {
         />
       </Center>
       <FormControl mt={4}>
-        <Input variant='filled' placeholder="What do you want to donate" />
+        <FormLabel >What do you want to donate</FormLabel>
+        <Select variant='filled' placeholder="Type">
+          <option value="cylinder">Cylinder</option>
+          <option value="refill">Refill</option>
+          <option value="concentrator">Concentrator</option>
+        </Select>
       </FormControl>
 
       <FormControl mt={4}>
+        <FormLabel >Name</FormLabel>
         <Input variant='filled' placeholder="Name" />
       </FormControl>
       <FormControl mt={4}>
+        <FormLabel >City</FormLabel>
         <Select variant='filled' placeholder="Select your city">
           {cities.map(item => {
             return (
@@ -37,15 +46,19 @@ export default function OxygenDonor() {
         </Select>
       </FormControl>
       <FormControl mt={4}>
+        <FormLabel >Pin Code</FormLabel>
         <Input variant='filled' placeholder="Pin-Code" />
       </FormControl>
       <FormControl mt={4}>
+        <FormLabel >Phone Number</FormLabel>
         <Input variant='filled' placeholder="Phone Number" />
       </FormControl>
       <FormControl mt={4} >
+        <FormLabel >Mates Affiliation <small>(if any)</small></FormLabel>
         <Input variant='filled' placeholder="Mates Affiliation" />
       </FormControl>
       <FormControl mt={4}>
+        <FormLabel >Quantity of Product</FormLabel>
         <Input variant='filled' placeholder="Quantity of Product" />
       </FormControl>
     </>

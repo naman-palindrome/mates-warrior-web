@@ -29,10 +29,12 @@ export default function FormModals({ open, onClose, id }) {
 
   return (
     <div>
-      <Modal isOpen={open} onClose={onClose}>
+      <Modal isOpen={open} onClose={onClose}
+        scrollBehavior="inside" preserveScrollBarGap={true}
+      >
         <ModalOverlay />
         <ModalContent>
-          <ModalCloseButton />
+          {/* <ModalCloseButton /> */}
           <ModalHeader><Center>{camelToTitle(id)}</Center></ModalHeader>
 
           <ModalBody pb={6}>

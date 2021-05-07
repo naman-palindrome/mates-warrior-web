@@ -1,5 +1,6 @@
 import {
   Center, FormControl,
+  FormLabel,
   Image, Input,
   Select
 } from "@chakra-ui/react";
@@ -20,9 +21,11 @@ export default function BloodDonor() {
         />
       </Center>
       <FormControl mt={4}  >
+        <FormLabel >Full Name</FormLabel>
         <Input variant='filled' placeholder=" Name" />
       </FormControl>
       <FormControl mt={4}>
+        <FormLabel >City</FormLabel>
         <Select variant='filled' placeholder="Select City">
           {cities.map(item => {
             return (
@@ -32,12 +35,15 @@ export default function BloodDonor() {
         </Select>
       </FormControl>
       <FormControl mt={4}>
-        <Input variant='filled' placeholder="Pin-Code" />
+        <FormLabel >Pin Code</FormLabel>
+        <Input variant='filled' placeholder="Pin Code" />
       </FormControl>
       <FormControl mt={4}>
+        <FormLabel >Phone Number</FormLabel>
         <Input variant='filled' placeholder="Phone Number" />
       </FormControl>
       <FormControl mt={4}>
+        <FormLabel >BloodGroup</FormLabel>
         <Select variant='filled' placeholder="Select BloodGroup">
           {bloodgroups.map(item => {
             return (
@@ -47,14 +53,16 @@ export default function BloodDonor() {
         </Select>
       </FormControl>
       <FormControl mt={4}>
+        <FormLabel >Mates Affiliation <small>(if any)</small></FormLabel>
         <Input variant='filled' placeholder="Mates Affiliation" />
       </FormControl>
       <FormControl mt={4} >
-        <Input variant='filled' placeholder="Date of last of Blood Donation" />
+        <FormLabel >Date of last of Blood Donation</FormLabel>
+        <Input variant='filled' placeholder="Date of last of Blood Donation" type="date" />
       </FormControl>
-    
 
-    
+
+
     </>
   )
 }
