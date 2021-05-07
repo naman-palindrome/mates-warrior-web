@@ -1,21 +1,19 @@
 import { Alert, AlertDescription, AlertIcon } from '@chakra-ui/alert'
 import { Button } from '@chakra-ui/button'
 import { FormControl, FormLabel } from '@chakra-ui/form-control'
-import { AddIcon, PhoneIcon } from '@chakra-ui/icons'
+import { PhoneIcon } from '@chakra-ui/icons'
 import { Image } from '@chakra-ui/image'
 import { Input, InputGroup, InputLeftElement } from '@chakra-ui/input'
-import { Divider, VStack } from '@chakra-ui/layout'
-import { Box, Center, Flex, Text } from '@chakra-ui/layout'
+import { Box, Center, Divider, Flex, Text, VStack } from '@chakra-ui/layout'
 import { useMediaQuery } from '@chakra-ui/media-query'
 import { Collapse } from '@chakra-ui/transition'
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
-import LoginSVG from '../../../assets/login.svg'
-import mauLogo from '../../../assets/MAU-logo.png'
 import androidLogo from "../../../assets/Icons/android.svg"
 import appleLogo from "../../../assets/Icons/apple.svg"
-import { userLogin, setCurUser } from '../../../store/auth'
+import LoginSVG from '../../../assets/login.svg'
+import mauLogo from '../../../assets/MAU-logo.png'
+import { useAuth } from '../../../store/AuthContext'
 import { validatePhone } from '../../../utils/regex'
 
 const styles = {
@@ -28,21 +26,21 @@ function Login() {
   const [otpInput, setOtpInput] = useState('')
   const [error, setError] = useState(null)
   const history = useHistory();
+  const { login } = useAuth();
 
   const [sm] = useMediaQuery("(max-width: 1024px)")
 
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!openOtp) setTimeout(() => setError(null), 2000)
   }, [error, openOtp])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     validatePhone(mobileInput) ? setOpenOtp(true) : setError("Please enter valid phone number");
 
     if (openOtp) {
-      dispatch(setCurUser(mobileInput))
+      await login(mobileInput);
       history.push('/')
     }
   }

@@ -70,7 +70,7 @@ const recentDonors = [
 
 export default function Dashboard() {
   const [openModal, setOpenModal] = useState(null);
-  const [isDonor, setIsDonor] = useState(true);
+  const [isDonor, setIsDonor] = useState(false);
   const history = useHistory()
 
   const closeModal = () => { setOpenModal(null) };
