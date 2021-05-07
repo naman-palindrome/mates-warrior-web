@@ -1,10 +1,9 @@
 import { HamburgerIcon, Search2Icon } from "@chakra-ui/icons"
-import {
-  Box, Flex, Heading, HStack, Image, Input, InputGroup, InputRightElement, Select, Stack, Text, useMediaQuery, Wrap, WrapItem
-} from "@chakra-ui/react"
+import { Box, Flex, Heading, HStack, Image, Input, InputGroup, InputRightElement, Select, Stack, Text, useMediaQuery, Wrap, WrapItem } from "@chakra-ui/react"
 import queryString from "query-string"
 import React from 'react'
 import { useLocation } from "react-router-dom"
+
 import BloodDrop from '../../../assets/bloodDrop.svg'
 import Oxygen from '../../../assets/oxygen.svg'
 import PlasmaDrop from '../../../assets/plasmaDrop.svg'

@@ -1,19 +1,18 @@
 import { RepeatClockIcon } from '@chakra-ui/icons'
 import { Image } from '@chakra-ui/image'
-import {
-  Avatar,
-  Flex, Heading, HStack, Menu, MenuButton, MenuDivider, MenuItem, MenuList
-} from "@chakra-ui/react"
+import { Avatar, Flex, Heading, HStack, Menu, MenuButton, MenuDivider, MenuItem, MenuList } from "@chakra-ui/react"
 import React from 'react'
 import { Link } from 'react-router-dom'
+
 import LogOutLogo from '../../../assets/Icons/logout.svg'
 import ProfileLogo from '../../../assets/Icons/profile-user.svg'
 import Logo from '../../../assets/MAU-logo.png'
 import { useAuth } from '../../../store/AuthContext'
+import { formatPhoneNumber } from '../../../utils/regex'
 
 export default function NavBar() {
 
-  const { logout } = useAuth();
+  const { curUser, logout } = useAuth();
 
   return (
     <>
@@ -39,7 +38,7 @@ export default function NavBar() {
           </MenuButton>
           <MenuList zIndex="100">
             <MenuItem icon={<Image src={ProfileLogo} boxSize="1.2rem" />} >
-              <strong>Profile</strong>
+              <strong>{formatPhoneNumber(curUser.phoneNumber)}</strong>
             </MenuItem>
             <MenuItem icon={<RepeatClockIcon fontSize="1.2rem" />} >
               <strong>History</strong>

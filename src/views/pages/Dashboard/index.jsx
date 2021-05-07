@@ -1,11 +1,11 @@
 import { Button } from '@chakra-ui/button'
 import { ArrowForwardIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons'
 import { Image } from '@chakra-ui/image'
-import {
-  Box, Collapse, Divider, Flex, Heading, HStack, Text, Tooltip, VStack, Wrap, WrapItem
-} from "@chakra-ui/react"
+import { Avatar, Box, Collapse, Divider, Flex, Heading, HStack, Text, Tooltip, VStack, Wrap, WrapItem } from "@chakra-ui/react"
+import { Table, TableCaption, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/table'
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
+
 import BloodDrop from '../../../assets/bloodDrop.svg'
 import Doctor from '../../../assets/doctor.svg'
 import FAQ from '../../../assets/faq.svg'
@@ -19,20 +19,17 @@ import Footer from '../../components/Footer'
 import NavBar from '../../components/NavBar'
 import FormModals from './Modals'
 
-
-
 const DonorLayer = {
-  'bloodDonor': { name: 'Blood', image: BloodDrop },
-  'plasmaDonor': { name: 'Plasma', image: PlasmaDrop },
-  'oxygenDonor': { name: 'Oxygen', image: Oxygen },
-  'consultancy': { name: 'Consultancy', image: Doctor },
-  'organDonor': { name: 'Organ', image: Organ },
-  'faq': { name: 'FAQ', image: FAQ },
+  'bloodDonor': { name: 'Blood', image: BloodDrop, disabled: false },
+  'plasmaDonor': { name: 'Plasma', image: PlasmaDrop, disabled: false },
+  'oxygenDonor': { name: 'Oxygen', image: Oxygen, disabled: true },
+  'consultancy': { name: 'Consultancy', image: Doctor, disabled: true },
+  'organDonor': { name: 'Organ', image: Organ, disabled: true },
 }
 
 const recentDonors = [
   {
-    'type': 'Plasma',
+    'type': 'Plasma Donor',
     'attributes': {
       'Name': 'Shubh Bansal',
       'Phone No.': '9999999999',
@@ -50,7 +47,7 @@ const recentDonors = [
     }
   },
   {
-    'type': 'Blood',
+    'type': 'Blood Donor',
     'attributes': {
       'Name': 'Shubh Bansal',
       'Phone No.': '9999999999',
@@ -72,7 +69,6 @@ const recentDonors = [
 export default function Dashboard() {
   const [openModal, setOpenModal] = useState(null);
   const [isDonor, setIsDonor] = useState(false);
-  const history = useHistory()
 
   const closeModal = () => { setOpenModal(null) };
 
@@ -86,6 +82,18 @@ export default function Dashboard() {
       />
       <NavBar />
       {/* MAIN DASHBOARD */}
+
+      <Box position="absolute" bottom="8" right="8">
+        <Tooltip label="FAQ" >
+          <Avatar size="md" m="1"
+            as={Link}
+            to="/"
+            showBorder="true"
+            src={FAQ}
+          />
+        </Tooltip>
+      </Box>
+
       <Box mx="auto" my="8" flex="1" >
         <Box p="6" w={{ base: '100vw', md: '90vw' }} borderWidth="1px" borderRadius="lg" bgColor="#fff" >
           <Flex flexDirection='column'>
@@ -108,12 +116,12 @@ export default function Dashboard() {
               <Box my='6' mx='2'>
                 <Wrap spacing='10'>
                   {Object.keys(DonorLayer).map(type => (
-                    <Tooltip key={type} isDisabled={!(type === 'consultancy' || type === 'organDonor')}
+                    <Tooltip key={type} isDisabled={!DonorLayer[type].disabled}
                       label="Coming Soon" fontSize="md"
                     >
                       <WrapItem>
-                        <Button onClick={() => type === 'faq' ? history.push('/') : setOpenModal(type)}
-                          isDisabled={type === 'consultancy' || type === 'organDonor'}
+                        <Button onClick={() => setOpenModal(type)}
+                          isDisabled={DonorLayer[type].disabled}
                           variant="outline"
                           _focus={{ borderColor: "var(--chakra-colors-yellow-400)" }}
                           borderWidth='2px' borderColor='rgba(238, 238, 238, 1)'
@@ -155,14 +163,14 @@ export default function Dashboard() {
               <Box my='6' mx='2'>
                 <Wrap spacing='10'>
                   {Object.keys(DonorLayer).map(type => (
-                    <Tooltip key={type} isDisabled={!(type === 'consultancy' || type === 'organDonor')}
+                    <Tooltip key={type} isDisabled={!DonorLayer[type].disabled}
                       label="Coming Soon" fontSize="md"
                     >
                       <WrapItem>
                         <Button
-                          isDisabled={type === 'consultancy' || type === 'organDonor'}
-                          as={(type === 'consultancy' || type === 'organDonor') ? '' : Link}
-                          to={`${type === 'faq' ? '/' : "/donors?type=" + type}`}
+                          isDisabled={DonorLayer[type].disabled}
+                          as={Link}
+                          to={`/donors?type=${type}}`}
                           variant="outline"
                           _focus={{ borderColor: "var(--chakra-colors-yellow-400)" }}
                           borderWidth='2px' borderColor='rgba(238, 238, 238, 1)'
@@ -187,11 +195,24 @@ export default function Dashboard() {
                 <Wrap spacing='10' my="4">
                   {recentDonors.map((recentDonation, idx) => (
                     <WrapItem key={idx}>
-                      <Box p='5' borderWidth="1px" minW="250px" borderRadius="lg" >
-                        <Text fontWeight="bold" isTruncated mb={2} >{recentDonation.type} Available</Text>
-                        {Object.keys(recentDonation.attributes).map(item => (
-                          <Text key={item} fontSize="14px" isTruncated ><i>{item}:</i> <b>{recentDonation.attributes[item]}</b></Text>
-                        ))}
+                      <Box borderRadius="md"
+                        borderWidth='2px'
+                      >
+                        <Table variant="striped" size="sm">
+                          <Thead>
+                            <Tr>
+                              <Th>{recentDonation.type}</Th>
+                            </Tr>
+                          </Thead>
+                          <Tbody>
+                            {Object.entries(recentDonation.attributes).map((atr, idx) => (
+                              <Tr key={idx}>
+                                <Td>{atr[0]}</Td>
+                                <Td><b>{atr[1]}</b></Td>
+                              </Tr>
+                            ))}
+                          </Tbody>
+                        </Table>
                       </Box>
                     </WrapItem>
                   ))}
