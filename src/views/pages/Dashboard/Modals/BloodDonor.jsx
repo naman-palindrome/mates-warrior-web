@@ -21,7 +21,12 @@ export default function BloodDonor() {
           objectFit="cover"
         />
       </Center>
-      <FormControl mt={4}  >
+      <FormControl   onSubmit={(values, actions) => {
+        setTimeout(() => {
+          alert(JSON.stringify(values, null, 2))
+          actions.setSubmitting(false)
+        }, 1000)
+      }} mt={4}  >
         <FormLabel >Full Name</FormLabel>
         <Input variant='filled' placeholder=" Name" />
       </FormControl>
