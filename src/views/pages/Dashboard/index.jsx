@@ -19,6 +19,7 @@ import FAQ from '../../../assets/faq.svg'
 import Footer from '../../components/Footer'
 import NavBar from '../../components/NavBar'
 import FormModals from './Modals'
+import { useAuth } from '../../../store/AuthContext'
 
 const DonorLayer = {
   'bloodDonor': { name: 'Blood', image: BloodDrop },
@@ -73,7 +74,11 @@ export default function Dashboard() {
   const [isDonor, setIsDonor] = useState(false);
   const history = useHistory()
 
+  const { curUser } = useAuth();
+
   const closeModal = () => { setOpenModal(null) };
+
+  console.log(curUser);
 
   return (
     <Flex direction="column" minH="100vh">
@@ -107,7 +112,7 @@ export default function Dashboard() {
               <Box my='6' mx='2'>
                 <Wrap spacing='10'>
                   {Object.keys(DonorLayer).map(type => (
-                    <Tooltip isDisabled={!(type === 'consultancy' || type === 'organDonor')}
+                    <Tooltip key={type} isDisabled={!(type === 'consultancy' || type === 'organDonor')}
                       label="Coming Soon" fontSize="md"
                     >
                       <WrapItem>
@@ -154,7 +159,7 @@ export default function Dashboard() {
               <Box my='6' mx='2'>
                 <Wrap spacing='10'>
                   {Object.keys(DonorLayer).map(type => (
-                    <Tooltip isDisabled={type !== 'consultancy' || type !== 'organDonor'}
+                    <Tooltip key={type} isDisabled={!(type === 'consultancy' || type === 'organDonor')}
                       label="Coming Soon" fontSize="md"
                     >
                       <WrapItem>
@@ -184,12 +189,12 @@ export default function Dashboard() {
                   <ArrowForwardIcon color="gray.400" />
                 </HStack>
                 <Wrap spacing='10' my="4">
-                  {recentDonors.map(recentDonation => (
-                    <WrapItem>
+                  {recentDonors.map((recentDonation, idx) => (
+                    <WrapItem key={idx}>
                       <Box p='5' borderWidth="1px" minW="250px" borderRadius="lg" >
                         <Text fontWeight="bold" isTruncated mb={2} >{recentDonation.type} Available</Text>
                         {Object.keys(recentDonation.attributes).map(item => (
-                          <Text fontSize="14px" isTruncated ><i>{item}:</i> <b>{recentDonation.attributes[item]}</b></Text>
+                          <Text key={item} fontSize="14px" isTruncated ><i>{item}:</i> <b>{recentDonation.attributes[item]}</b></Text>
                         ))}
                       </Box>
                     </WrapItem>

@@ -5,14 +5,15 @@ import {
   ListItem,
   Select
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import Oxygen from '../../../../assets/oxygen.svg';
+import { citiesAndStates } from '../../../../utils/citiesAndState';
 
-let cities = ['Delhi', 'Gurgaon', 'Bangalore', 'Pune', 'Ahmedabad', 'Mumbai', 'Thane', 'Nashik', 'Kolkata', 'Lucknow', 'Noida', 'Faridabad', 'Prayagraj', 'Patna', 'Ranchi', 'Jaipur', 'Agra', 'Chandigarh', 'Nagpur', 'Chennai', 'Bhopal', 'Indore', 'Hyderabad', 'Kerala', 'Bihar', 'Gujarat', 'Maharashtra', 'Karnataka', 'Madhya Pradesh', 'Orissa', 'Uttar Pradesh', 'Telangana', 'Andhra Pradesh', 'Chhatisgarh', 'Tamil Nadu', 'West Bengal', 'Haryana', 'Uttrakhand', 'J&K', 'Himachal Pradesh', 'Jharkhand', 'Rajasthan', 'Goa', 'Assam', 'Punjab', 'Saurashtra & South Gujarat', 'Uttar Pradesh East', 'Uttar Pradesh West', 'Bundelkhand', 'Other']
 
-let bloodgroups = ['O-', 'O+', 'B-', 'B+', 'A-', 'A+', 'AB-', 'AB+']
 
 export default function OxygenDonor() {
+  const [state, setState] = useState('')
+
   return (
 
     <>
@@ -36,11 +37,21 @@ export default function OxygenDonor() {
         <Input variant='filled' placeholder="Name" />
       </FormControl>
       <FormControl mt={4}>
+        <FormLabel >State</FormLabel>
+        <Select variant='filled' placeholder="Select your state" onChange={(e) => setState(e.target.value)}>
+          {Object.keys(citiesAndStates).map(stateName => {
+            return (
+              <option value={stateName}>{stateName}</option>
+            )
+          })}
+        </Select>
+      </FormControl>
+      <FormControl mt={4}>
         <FormLabel >City</FormLabel>
         <Select variant='filled' placeholder="Select your city">
-          {cities.map(item => {
+          {citiesAndStates[state].map(city => {
             return (
-              <option value="option1">{item}</option>
+              <option value={city}>{city}</option>
             )
           })}
         </Select>
