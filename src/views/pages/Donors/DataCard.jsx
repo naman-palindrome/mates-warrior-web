@@ -2,7 +2,7 @@ import { Box } from '@chakra-ui/layout'
 import { Table, Tbody, Td, Tr } from '@chakra-ui/table'
 import React from 'react'
 
-function DataCard() {
+function DataCard( {donor} ) {
   return (
     <Box borderRadius="md"
       borderWidth='2px'
@@ -11,27 +11,31 @@ function DataCard() {
         <Tbody>
           <Tr>
             <Td>Name</Td>
-            <Td><b>Simranjeet Singh</b></Td>
+            <Td><b>{donor.name}</b></Td>
           </Tr>
           <Tr>
             <Td>Blood Group</Td>
-            <Td><b>O+ve</b></Td>
+            <Td><b>{donor.blood_group}</b></Td>
           </Tr>
           <Tr>
-            <Td>Location</Td>
-            <Td><b>Delhi</b></Td>
+            <Td>State</Td>
+            <Td><b>{donor.state}</b></Td>
+          </Tr>
+          <Tr>
+            <Td>City</Td>
+            <Td><b>{donor.city}</b></Td>
           </Tr>
           <Tr>
             <Td>PinCode</Td>
-            <Td><b>110012</b></Td>
+            <Td><b>{donor.pincode}</b></Td>
           </Tr>
           <Tr>
             <Td>Last Donation:</Td>
-            <Td><b>12 March 2021</b></Td>
+            <Td><b>{donor.date}</b></Td>
           </Tr>
           <Tr>
             <Td>Phone No:</Td>
-            <Td><b>9815638276</b></Td>
+            <Td><b>{donor.phone_number}</b></Td>
           </Tr>
         </Tbody>
       </Table>

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 import LogOutLogo from '../../../assets/Icons/logout.svg'
 import ProfileLogo from '../../../assets/Icons/profile-user.svg'
-import Logo from '../../../assets/MAU-logo.png'
+import Logo from '../../../assets/institutelogos/MATES.svg'
 import { useAuth } from '../../../store/AuthContext'
 import { formatPhoneNumber } from '../../../utils/regex'
 
@@ -33,16 +33,15 @@ export default function NavBar() {
           <MenuButton>
             <Avatar size="md"
               showBorder="true"
-              src="https://bit.ly/kent-c-dodds"
             />
           </MenuButton>
           <MenuList zIndex="100">
             <MenuItem icon={<Image src={ProfileLogo} boxSize="1.2rem" />} >
               <strong>{formatPhoneNumber(curUser.phoneNumber)}</strong>
             </MenuItem>
-            <MenuItem icon={<RepeatClockIcon fontSize="1.2rem" />} >
+            {/* <MenuItem icon={<RepeatClockIcon fontSize="1.2rem" />} >
               <strong>History</strong>
-            </MenuItem>
+            </MenuItem> */}
             <MenuDivider />
             <MenuItem color="red.500"
               onClick={logout}

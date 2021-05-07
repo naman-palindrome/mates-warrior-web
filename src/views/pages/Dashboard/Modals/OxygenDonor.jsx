@@ -32,11 +32,11 @@ export default function OxygenDonor() {
         </Select>
       </FormControl>
 
-      <FormControl mt={4}>
+      <FormControl mt={4} isRequired >
         <FormLabel >Name</FormLabel>
         <Input variant='filled' placeholder="Name" />
       </FormControl>
-      <FormControl mt={4}>
+      <FormControl mt={4} isRequired >
         <FormLabel >State</FormLabel>
         <Select variant='filled' placeholder="Select your state" onChange={(e) => setState(e.target.value)}>
           {Object.keys(citiesAndStates).map(stateName => {
@@ -56,11 +56,11 @@ export default function OxygenDonor() {
           })}
         </Select>
       </FormControl>
-      <FormControl mt={4}>
+      <FormControl mt={4} isRequired >
         <FormLabel >Pin Code</FormLabel>
         <Input variant='filled' placeholder="Pin-Code" />
       </FormControl>
-      <FormControl mt={4}>
+      <FormControl mt={4} isRequired >
         <FormLabel >Phone Number</FormLabel>
         <Input variant='filled' placeholder="Phone Number" />
       </FormControl>
@@ -68,7 +68,7 @@ export default function OxygenDonor() {
         <FormLabel >Mates Affiliation <small>(if any)</small></FormLabel>
         <Input variant='filled' placeholder="Mates Affiliation" />
       </FormControl>
-      <FormControl mt={4}>
+      <FormControl mt={4} isRequired >
         <FormLabel >Quantity of Product</FormLabel>
         <Input variant='filled' placeholder="Quantity of Product" />
       </FormControl>

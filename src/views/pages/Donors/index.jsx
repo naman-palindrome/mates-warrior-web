@@ -30,6 +30,153 @@ const getData = (id) => {
 }
 
 
+const donorList = [
+  { 
+    'name': 'Shubh Bansal',
+    'blood_group': 'B+',
+    'state': 'Delhi',
+    'city': 'New Delhi',
+    'pincode': '110034',
+    'date': '1 May 2021',
+    'phone_number': '9717593233'
+  },
+  { 
+    'name': 'Vikas Bansal',
+    'blood_group': 'AB+',
+    'state': 'Delhi',
+    'city': 'New Delhi',
+    'pincode': '110038',
+    'date': '5 May 2021',
+    'phone_number': '921298733'
+  },
+  { 
+    'name': 'Simranjeet SIngh',
+    'blood_group': 'O+',
+    'state': 'Bhiwadi',
+    'city': 'Haryana',
+    'pincode': '110034',
+    'date': '1 May 2021',
+    'phone_number': '9717593233'
+  },
+  { 
+    'name': 'Atishay Jain',
+    'blood_group': 'AB+',
+    'state': 'Delhi',
+    'city': 'Rohini',
+    'pincode': '110085',
+    'date': '29 April 2021',
+    'phone_number': '8567234521'
+  },
+  { 
+    'name': 'Shubh Bansal',
+    'blood_group': 'B+',
+    'state': 'Delhi',
+    'city': 'New Delhi',
+    'pincode': '110034',
+    'date': '1 May 2021',
+    'phone_number': '9717593233'
+  },
+  { 
+    'name': 'Vikas Bansal',
+    'blood_group': 'AB+',
+    'state': 'Delhi',
+    'city': 'New Delhi',
+    'pincode': '110038',
+    'date': '5 May 2021',
+    'phone_number': '921298733'
+  },
+  { 
+    'name': 'Simranjeet SIngh',
+    'blood_group': 'O+',
+    'state': 'Bhiwadi',
+    'city': 'Haryana',
+    'pincode': '110034',
+    'date': '1 May 2021',
+    'phone_number': '9717593233'
+  },
+  { 
+    'name': 'Atishay Jain',
+    'blood_group': 'AB+',
+    'state': 'Delhi',
+    'city': 'Rohini',
+    'pincode': '110085',
+    'date': '29 April 2021',
+    'phone_number': '8567234521'
+  },
+  { 
+    'name': 'Shubh Bansal',
+    'blood_group': 'B+',
+    'state': 'Delhi',
+    'city': 'New Delhi',
+    'pincode': '110034',
+    'date': '1 May 2021',
+    'phone_number': '9717593233'
+  },
+  { 
+    'name': 'Vikas Bansal',
+    'blood_group': 'AB+',
+    'state': 'Delhi',
+    'city': 'New Delhi',
+    'pincode': '110038',
+    'date': '5 May 2021',
+    'phone_number': '921298733'
+  },
+  { 
+    'name': 'Simranjeet SIngh',
+    'blood_group': 'O+',
+    'state': 'Bhiwadi',
+    'city': 'Haryana',
+    'pincode': '110034',
+    'date': '1 May 2021',
+    'phone_number': '9717593233'
+  },
+  { 
+    'name': 'Atishay Jain',
+    'blood_group': 'AB+',
+    'state': 'Delhi',
+    'city': 'Rohini',
+    'pincode': '110085',
+    'date': '29 April 2021',
+    'phone_number': '8567234521'
+  },
+  { 
+    'name': 'Shubh Bansal',
+    'blood_group': 'B+',
+    'state': 'Delhi',
+    'city': 'New Delhi',
+    'pincode': '110034',
+    'date': '1 May 2021',
+    'phone_number': '9717593233'
+  },
+  { 
+    'name': 'Vikas Bansal',
+    'blood_group': 'AB+',
+    'state': 'Delhi',
+    'city': 'New Delhi',
+    'pincode': '110038',
+    'date': '5 May 2021',
+    'phone_number': '921298733'
+  },
+  { 
+    'name': 'Simranjeet SIngh',
+    'blood_group': 'O+',
+    'state': 'Bhiwadi',
+    'city': 'Haryana',
+    'pincode': '110034',
+    'date': '1 May 2021',
+    'phone_number': '9717593233'
+  },
+  { 
+    'name': 'Atishay Jain',
+    'blood_group': 'AB+',
+    'state': 'Delhi',
+    'city': 'Rohini',
+    'pincode': '110085',
+    'date': '29 April 2021',
+    'phone_number': '8567234521'
+  },
+];
+
 export default function Donors() {
 
   const [md] = useMediaQuery("(max-width: 500px)")
@@ -90,9 +237,9 @@ export default function Donors() {
         </Wrap>
         <Box mt='6' flex="1" overflowY={md ? "hidden" : "auto"} overflowX="hidden">
           <Wrap spacing='10' justify="center">
-            {bloodgroups.map(type => (
-              <WrapItem key={type}>
-                <DataCard />
+            {donorList.map(donor => (
+              <WrapItem key={donor.name}>
+                <DataCard donor={donor} />
               </WrapItem>
             ))}
           </Wrap>

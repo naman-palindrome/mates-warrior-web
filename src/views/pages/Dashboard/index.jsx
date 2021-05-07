@@ -28,40 +28,40 @@ const DonorLayer = {
 }
 
 const recentDonors = [
-  {
-    'type': 'Plasma Donor',
-    'attributes': {
-      'Name': 'Shubh Bansal',
-      'Phone No.': '9999999999',
-      'Remark': 'Remark',
-      'State': 'Delhi',
+  { 
+    'type' : 'Plasma', 
+    'attributes' : {
+      'Name' : 'Shubh Bansal',
+      'Phone No.' : '9717593233',
+      'Blood Group' : 'B+',
+      'State' : 'Delhi',
     }
   },
-  {
-    'type': 'Oxygen Concentrator',
-    'attributes': {
-      'Name': 'Shubh Bansal',
-      'Phone No.': '9999999999',
-      'Brand': 'Philips',
-      'State': 'Delhi',
+  { 
+    'type' : 'Blood', 
+    'attributes' : {
+      'Name' : 'Simran Singh',
+      'Phone No.' : '8291834211',
+      'Blood Group' : 'Philips',
+      'State' : 'Delhi',
     }
   },
-  {
-    'type': 'Blood Donor',
-    'attributes': {
-      'Name': 'Shubh Bansal',
-      'Phone No.': '9999999999',
-      'Blood Group': 'B+',
-      'State': 'Delhi',
+  { 
+    'type' : 'Blood', 
+    'attributes' : {
+      'Name' : 'Vikas Gupta',
+      'Phone No.' : '9212528520',
+      'Blood Group' : 'B+',
+      'State' : 'Delhi',
     }
   },
-  {
-    'type': 'Oxygen Cylinder',
-    'attributes': {
-      'Name': 'Shubh Bansal',
-      'Phone No.': '9999999999',
-      'Quantity': '10 Litres',
-      'State': 'Delhi',
+  { 
+    'type' : 'Plasma', 
+    'attributes' : {
+      'Name' : 'Atishay Jain',
+      'Phone No.' : '9911789351',
+      'Blood Group' : 'AB-',
+      'State' : 'Delhi',
     }
   },
 ]
@@ -83,7 +83,7 @@ export default function Dashboard() {
       <NavBar />
       {/* MAIN DASHBOARD */}
 
-      <Box position="absolute" bottom="8" right="8">
+      <Box position="absolute" bottom="8" right="8" >
         <Tooltip label="FAQ" >
           <Avatar size="md" m="1"
             as={Link}
@@ -179,7 +179,7 @@ export default function Dashboard() {
                           <VStack spacing={4} >
                             <Image
                               src={DonorLayer[type].image}
-                              height='10vh'
+                              height={{ base: '10vh', md: '10vh', lg: '6vh', xl: '10vh' }}
                             />
                             <Text>{DonorLayer[type].name}</Text>
                           </VStack>
@@ -188,35 +188,25 @@ export default function Dashboard() {
                     </Tooltip>
                   ))}
                 </Wrap>
-                <HStack spacing={6} mt='6' mb="3" ml="1" as={Link} to="/donors?type=bloodDonor" >
-                  <Text size="sm" >Try our most recent and verified leads</Text>
-                  <ArrowForwardIcon color="gray.400" />
-                </HStack>
-                <Wrap spacing='10' my="4">
-                  {recentDonors.map((recentDonation, idx) => (
-                    <WrapItem key={idx}>
-                      <Box borderRadius="md"
-                        borderWidth='2px'
-                      >
-                        <Table variant="striped" size="sm">
-                          <Thead>
-                            <Tr>
-                              <Th>{recentDonation.type}</Th>
-                            </Tr>
-                          </Thead>
-                          <Tbody>
-                            {Object.entries(recentDonation.attributes).map((atr, idx) => (
-                              <Tr key={idx}>
-                                <Td>{atr[0]}</Td>
-                                <Td><b>{atr[1]}</b></Td>
-                              </Tr>
-                            ))}
-                          </Tbody>
-                        </Table>
-                      </Box>
-                    </WrapItem>
-                  ))}
-                </Wrap>
+                
+                <VStack display={{base:'none',xl:'block'}}>
+                  <HStack spacing={6} mt='6' mb="3" ml="1"  >
+                    <Text size="sm" >Try our most recent and verified leads</Text>
+                  </HStack>
+                  <HStack spacing='10' height='100%' >
+                      {recentDonors.map(recentDonation => (
+                        <Box p='5' borderWidth="1px" height='100%' width="18vw" borderRadius="lg" 
+                          backgroundColor={(recentDonation.type==='Blood')?'#FFF5F5':'#FFFFF0'}
+                        >
+                          <Text fontWeight="bold" isTruncated mb={2} >{recentDonation.type} Available</Text>
+                          {Object.keys(recentDonation.attributes).map(item => (
+                            <Text fontSize="14px" isTruncated ><i>{item}:</i> <b>{recentDonation.attributes[item]}</b></Text>
+                          ))}
+                        </Box>
+                      ))}
+                  </HStack>
+                </VStack>
+                
               </Box>
             </Collapse>
           </Flex>

@@ -137,18 +137,15 @@ function Login() {
 
                 </Box>
 
-                <Flex width="100%" justify="space-between" direction={sm ? 'column' : 'row'}>
-                  <Button leftIcon={<Image src={androidLogo} boxSize="20px" objectFit="scale-down" />}
-                    colorScheme="whatsapp" my="2"
-                  >
-                    Download Android App
-                  </Button>
-                  <Button leftIcon={<Image src={appleLogo} boxSize="20px" objectFit="scale-down" />}
-                    colorScheme="blackAlpha" my="2"
-                  >
-                    Download iOS App
-                  </Button>
-                </Flex>
+                {/* <Center> */}
+                  <Flex width="100%" justify="center" direction={sm ? 'column' : 'row'}>
+                      <Button leftIcon={<Image src={androidLogo} boxSize="20px" objectFit="scale-down" />}
+                        colorScheme="whatsapp" my="2"
+                      >
+                        Download Android App
+                      </Button>
+                  </Flex>
+                {/* </Center> */}
 
                 <br />
                 <br />
