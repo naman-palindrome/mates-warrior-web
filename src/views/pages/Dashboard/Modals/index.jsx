@@ -22,6 +22,8 @@ const getModal = (id) => {
       return <PlasmaDonor />
     case 'oxygenDonor':
       return <OxygenDonor />
+    default:
+      return <BloodDonor />
   }
 }
 

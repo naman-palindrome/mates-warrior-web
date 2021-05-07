@@ -1,7 +1,8 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Router, Switch } from 'react-router-dom';
 import { AuthProvider } from '../../../store/AuthContext';
 import PrivateRoute from "../../containers/PrivateRoute";
+import PublicRoute from '../../containers/PublicRoute';
 import Login from '../Auth/Login';
 import Dashboard from '../Dashboard';
 import Donors from '../Donors';
@@ -12,9 +13,9 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <Switch>
-          <Route path="/login" exact component={Login} />
-          <Route path="/" exact component={Dashboard} />
-          <Route path="/donors" exact component={Donors} />
+          <PrivateRoute path="/" exact component={Dashboard} />
+          <PrivateRoute path="/donors" exact component={Donors} />
+          <PublicRoute path="/login" exact component={Login} />
         </Switch>
       </AuthProvider>
     </BrowserRouter>

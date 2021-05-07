@@ -2,24 +2,24 @@ import { Button } from '@chakra-ui/button'
 import { ArrowForwardIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons'
 import { Image } from '@chakra-ui/image'
 import {
-  Box, Collapse, Divider, Flex, Heading, HStack, Text, Tooltip, VStack, Wrap, WrapItem, Center,
+  Box, Collapse, Divider, Flex, Heading, HStack, Text, Tooltip, VStack, Wrap, WrapItem
 } from "@chakra-ui/react"
 import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-
 import BloodDrop from '../../../assets/bloodDrop.svg'
 import Doctor from '../../../assets/doctor.svg'
+import FAQ from '../../../assets/faq.svg'
 import DonorLogo from '../../../assets/Icons/health-care.svg'
 import TakerLogo from '../../../assets/Icons/organ-donation.svg'
+import Organ from '../../../assets/organ.svg'
 import Oxygen from '../../../assets/oxygen.svg'
 import PlasmaDrop from '../../../assets/plasmaDrop.svg'
-import Organ from '../../../assets/organ.svg'
-import FAQ from '../../../assets/faq.svg'
-
+import { useAuth } from '../../../store/AuthContext'
 import Footer from '../../components/Footer'
 import NavBar from '../../components/NavBar'
 import FormModals from './Modals'
-import { useAuth } from '../../../store/AuthContext'
+
+
 
 const DonorLayer = {
   'bloodDonor': { name: 'Blood', image: BloodDrop },
@@ -74,11 +74,7 @@ export default function Dashboard() {
   const [isDonor, setIsDonor] = useState(false);
   const history = useHistory()
 
-  const { curUser } = useAuth();
-
   const closeModal = () => { setOpenModal(null) };
-
-  console.log(curUser);
 
   return (
     <Flex direction="column" minH="100vh">

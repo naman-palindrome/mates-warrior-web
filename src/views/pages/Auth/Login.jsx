@@ -24,7 +24,7 @@ function Login() {
   const [otpInput, setOtpInput] = useState('')
   const [error, setError] = useState(null)
 
-  const { login, otpSent, submitOtp, firebaseError } = useAuth();
+  const { login, otpSent, submitOtp, isLoading } = useAuth();
 
   const [sm] = useMediaQuery("(max-width: 1024px)")
 
@@ -112,6 +112,8 @@ function Login() {
                     my="1rem"
                     width="100%"
                     colorScheme="yellow"
+                    isLoading={isLoading}
+                    isDisabled={(otpSent && !otpInput)}
                     onClick={handlePhone}
                   >
                     {!otpSent ? "Get OTP" : "Proceed"}
