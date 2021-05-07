@@ -1,11 +1,14 @@
-import firebase from 'firebase';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
+
+import firebase from 'firebase';
+
 import { auth } from '../firebase';
 
 const AuthContext = createContext();
 
 auth.settings.isAppVerificationDisabledForTesting = true
+
 
 export function useAuth() {
   return useContext(AuthContext)
@@ -15,6 +18,7 @@ export function AuthProvider({ children }) {
 
   const [curUser, setCurUser] = useState();
   const [otpSent, setOtpSent] = useState(false);
+  const [firebaseError, setFirebaseError] = useState(null)
 
   const [codeId, setCodeId] = useState("")
 
@@ -30,55 +34,58 @@ export function AuthProvider({ children }) {
     return unsubscribe;
   }, [])
 
+  useEffect(() => {
+    const interval = setInterval(() => setFirebaseError(null), 2000)
+    return clearInterval(interval)
+  }, [firebaseError])
+
   const login = (payload) => {
     setOtpSent(false);
     setIsLoading(true);
     let number = payload.trim()
 
-    const recaptcha = new firebase.auth.RecaptchaVerifier('recaptcha-verifier-container', {
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-verifier-container', {
       'size': 'invisible',
       'callback': () => {
-        setOtpSent(true);
-        setIsLoading(false)
+        setIsLoading(false);
       }
     });
 
-    return auth.signInWithPhoneNumber(number, recaptcha)
+    const appVerifier = window.recaptchaVerifier;
+    return auth.signInWithPhoneNumber(number, appVerifier)
       .then((confirmationResult) => {
+        setOtpSent(true);
         setCodeId(confirmationResult.verificationId)
       }).catch((e) => {
         // Error; SMS not sent
-        console.log(e);
-        alert("SMS not sent, try again later")
-        history.go(0)
-      });
+        setFirebaseError(e.message)
+        setOtpSent(false);
+      }).finally(() => {
+        setIsLoading(false);
+      })
   }
 
   const signInWithOtp = (codeId, otp) => {
     let credential = firebase.auth.PhoneAuthProvider.credential(codeId, otp);
+    setIsLoading(true)
     auth.signInWithCredential(credential)
       .then((res) => {
         history.push('/')
-        setOtpSent(false);
       }).catch((e) => {
-        console.log(e);
-        alert("Invalid OTP")
-        setOtpSent(false);
-      })
+        setFirebaseError(e.message)
+      }).finally(() => setIsLoading(false))
   }
 
   const submitOtp = (otp) => {
     signInWithOtp(codeId, otp)
   }
 
-
-
   const logout = () => {
     auth.signOut()
     setCurUser(null);
   }
 
-  const value = { curUser, otpSent, isLoading, login, submitOtp, logout };
+  const value = { curUser, otpSent, isLoading, firebaseError, login, submitOtp, logout };
 
 
   return (

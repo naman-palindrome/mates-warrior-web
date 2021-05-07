@@ -8,12 +8,13 @@ import { Box, Center, Divider, Flex, Text, VStack } from '@chakra-ui/layout'
 import { useMediaQuery } from '@chakra-ui/media-query'
 import { Collapse } from '@chakra-ui/transition'
 import React, { useEffect, useState } from 'react'
+
 import androidLogo from "../../../assets/Icons/android.svg"
 import appleLogo from "../../../assets/Icons/apple.svg"
 import LoginSVG from '../../../assets/login.svg'
-import mauLogo from '../../../assets/MAU-logo.png'
+import mauLogo from '../../../assets/logos.svg'
 import { useAuth } from '../../../store/AuthContext'
-import { validatePhone } from '../../../utils/regex'
+import { formatPhoneNumber, validatePhone } from '../../../utils/regex'
 
 const styles = {
   alert: { position: 'absolute', bottom: 10, left: '50%', transform: 'translateX(-50%)', width: 'fit-content' }
@@ -24,7 +25,7 @@ function Login() {
   const [otpInput, setOtpInput] = useState('')
   const [error, setError] = useState(null)
 
-  const { login, otpSent, submitOtp, isLoading } = useAuth();
+  const { login, firebaseError, otpSent, submitOtp, isLoading } = useAuth();
 
   const [sm] = useMediaQuery("(max-width: 1024px)")
 
@@ -35,7 +36,8 @@ function Login() {
   }, [mobileInput])
 
   useEffect(() => {
-    return setTimeout(() => setError(null), 2000)
+    const interval = setInterval(() => setError(null), 2000)
+    return clearInterval(interval)
   }, [error, otpSent])
 
   const handlePhone = async (e) => {
@@ -61,6 +63,12 @@ function Login() {
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       }
+      {!!firebaseError &&
+        <Alert status="error" style={styles.alert}>
+          <AlertIcon />
+          <AlertDescription>{firebaseError.split(".")[0]}</AlertDescription>
+        </Alert>
+      }
       <div id="recaptcha-verifier-container"></div>
       <Center minH="100vh">
         <Box w='75vw' borderWidth="1px" borderRadius="lg" minH="80vh"
@@ -77,75 +85,77 @@ function Login() {
             <Box flex="1" p={sm ? '2rem' : '4rem'}>
               <VStack justify='space-between' h="100%">
                 <Box width="100%">
-                  <FormControl id="mobile" isRequired>
-                    <FormLabel >Enter Mobile Number</FormLabel>
-                    <InputGroup>
-                      <InputLeftElement
-                        pointerEvents="none"
-                        children={<PhoneIcon color="gray.300" />}
-                      />
-                      <Input size="md" variant="filled"
-                        type="tel"
-                        placeholder="+91 xxxxxxxxxx"
-                        isInvalid={!!error}
-                        value={mobileInput}
-                        onChange={e => setMobileInput(e.target.value)}
-                      />
-                    </InputGroup>
-                  </FormControl>
-                  <br />
-                  <FormControl id="otp" isRequired>
-                    <Collapse in={otpSent} animateOpacity>
-                      <FormLabel >Enter OTP</FormLabel>
-                      <InputGroup >
+                  <form>
+                    <FormControl id="mobile" isRequired>
+                      <FormLabel >Enter Mobile Number</FormLabel>
+                      <InputGroup>
+                        <InputLeftElement
+                          pointerEvents="none"
+                          children={<PhoneIcon color="gray.300" />}
+                        />
                         <Input size="md" variant="filled"
-                          placeholder="OTP"
-                          value={otpInput}
-                          onChange={e => setOtpInput(e.target.value)}
+                          type="tel"
+                          placeholder="Phone Number"
+                          isInvalid={!!error}
+                          value={mobileInput}
+                          onChange={e => setMobileInput(e.target.value)}
                         />
                       </InputGroup>
-                      <br />
-                    </Collapse>
-                  </FormControl>
+                    </FormControl>
+                    <br />
+                    <FormControl id="otp" isRequired>
+                      <Collapse in={otpSent} animateOpacity>
+                        <FormLabel >Enter OTP</FormLabel>
+                        <InputGroup >
+                          <Input size="md" variant="filled"
+                            placeholder="OTP"
+                            value={otpInput}
+                            onChange={e => setOtpInput(e.target.value)}
+                          />
+                        </InputGroup>
+                        <br />
+                      </Collapse>
+                    </FormControl>
 
-                  <Button
-                    my="1rem"
-                    width="100%"
-                    colorScheme="yellow"
-                    isLoading={isLoading}
-                    isDisabled={(otpSent && !otpInput)}
-                    onClick={handlePhone}
-                  >
-                    {!otpSent ? "Get OTP" : "Proceed"}
-                  </Button>
-                  <Flex align="center">
-                    <Divider my="4" flex="1" />
-                    <Text color="gray.500" mx='4'>OR</Text>
-                    <Divider my="4" flex="1" />
-                  </Flex>
+                    <Button
+                      my="1rem"
+                      width="100%"
+                      colorScheme="yellow"
+                      isLoading={isLoading}
+                      isDisabled={(otpSent && !otpInput)}
+                      type="submit"
+                      onClick={handlePhone}
+                    >
+                      {!otpSent ? "Get OTP" : "Proceed"}
+                    </Button>
+                    <Flex align="center">
+                      <Divider my="4" flex="1" />
+                      <Text color="gray.500" mx='4'>OR</Text>
+                      <Divider my="4" flex="1" />
+                    </Flex>
+                  </form>
+
                 </Box>
 
-                <Flex width="100%" justify="space-between" direction={sm ? 'column' : 'row'}>
-                  <Button leftIcon={<Image src={androidLogo} boxSize="20px" objectFit="scale-down" />}
-                    colorScheme="whatsapp" my="2"
-                  >
-                    Download Android App
-                  </Button>
-                  <Button leftIcon={<Image src={appleLogo} boxSize="20px" objectFit="scale-down" />}
-                    colorScheme="blackAlpha" my="2"
-                  >
-                    Download iOS App
-                  </Button>
-                </Flex>
+                {/* <Center> */}
+                  <Flex width="100%" justify="center" direction={sm ? 'column' : 'row'}>
+                      <Button leftIcon={<Image src={androidLogo} boxSize="20px" objectFit="scale-down" />}
+                        colorScheme="whatsapp" my="2"
+                      >
+                        Download Android App
+                      </Button>
+                  </Flex>
+                {/* </Center> */}
 
                 <br />
                 <br />
                 <Center>
-                  <VStack spacing={0}>
+                  <VStack spacing='2'>
                     <Text fontSize="sm">Intiative By</Text>
                     <Image
                       src={mauLogo}
-                      boxSize="80px"
+                      width="75%"
+
                       objectFit="scale-down"
                     />
                   </VStack>

@@ -1,5 +1,7 @@
 import {
-  Button,
+  Heading, 
+  Button, Box, VStack,
+  Image,
   Center,
   Modal,
   ModalBody,
@@ -7,10 +9,11 @@ import {
   ModalFooter, ModalHeader, ModalOverlay
 } from "@chakra-ui/react";
 import camelToTitle from "../../../../utils/camelToTitle";
+import successSVG from "../../../../assets/success.svg";
 import BloodDonor from "./BloodDonor";
 import OxygenDonor from "./OxygenDonor";
 import PlasmaDonor from "./PlasmaDonor";
-
+import {useState} from 'react';
 
 
 
@@ -29,9 +32,11 @@ const getModal = (id) => {
 
 export default function FormModals({ open, onClose, id }) {
 
+  const [registerResult, setRegisterResult] = useState(false);
+
   return (
     <div>
-      <Modal isOpen={open} onClose={onClose} autoFocus={false}
+      <Modal isOpen={open} onClose={() => { onClose(); setRegisterResult(false); }} autoFocus={false}
         scrollBehavior="inside" preserveScrollBarGap={true}
       >
         <ModalOverlay />
@@ -40,14 +45,21 @@ export default function FormModals({ open, onClose, id }) {
           <ModalHeader><Center>{camelToTitle(id)}</Center></ModalHeader>
 
           <ModalBody pb={6}>
-            {getModal(id)}
+            {(registerResult)?
+            <VStack justify='center'>
+              <Image src={successSVG} p={20} />
+              <Heading size="md" color="green" mb={20} >Registered Successfully !</Heading>
+            </VStack>
+            :getModal(id)}
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="orange">
+            {!registerResult && 
+            <Button colorScheme="orange" onClick={() => setRegisterResult(true)}>
               Register as {camelToTitle(id)}
-            </Button>
+            </Button>}
           </ModalFooter>
+
         </ModalContent>
       </Modal>
     </div>

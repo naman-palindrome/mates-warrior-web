@@ -1,4 +1,4 @@
-import {
+ import {
   Center, Checkbox, FormControl,
   FormLabel,
   Image, Input,
@@ -25,11 +25,11 @@ export default function PlasmaDonor() {
         />
       </Center>
 
-      <FormControl mt={4}>
+      <FormControl mt={4} isRequired >
         <FormLabel >Full Name</FormLabel>
         <Input variant='filled' placeholder="Name" />
       </FormControl>
-      <FormControl mt={4}>
+      <FormControl mt={4} isRequired >
         <FormLabel >State</FormLabel>
         <Select variant='filled' placeholder="Select your state" onChange={(e) => setState(e.target.value)}>
           {Object.keys(citiesAndStates).map(stateName => {
@@ -49,16 +49,16 @@ export default function PlasmaDonor() {
           })}
         </Select>
       </FormControl>
-      <FormControl mt={4}>
+      <FormControl mt={4} isRequired >
         <FormLabel >Pin Code</FormLabel>
         <Input variant='filled' placeholder="Pin Code" />
       </FormControl>
-      <FormControl mt={4}>
+      <FormControl mt={4} isRequired >
         <FormLabel >Phone Number</FormLabel>
         <Input variant='filled' placeholder="Phone Number" />
       </FormControl>
 
-      <FormControl mt={4}>
+      <FormControl mt={4} isRequired >
         <FormLabel >BloodGroup</FormLabel>
         <Select variant='filled' placeholder="Select BloodGroup">
           {bloodgroups.map(item => {
@@ -75,7 +75,7 @@ export default function PlasmaDonor() {
       </FormControl>
 
 
-      <FormControl mt={4} ml="2">
+      <FormControl mt={4} ml="2" isRequired >
         <Checkbox colorScheme="blue" >
           I am eligible for plasma donation
         </Checkbox>

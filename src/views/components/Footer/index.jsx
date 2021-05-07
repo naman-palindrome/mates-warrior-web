@@ -8,8 +8,6 @@ export default function Footer() {
 
   return (
     <>
-      {/* Footer */}
-      {/* <div style={{ padding: "40px" }}></div> */}
       <Box bg="yellow.100" width="100%" p="3" >
         <Center>
           <Text fontSize='sm'>

@@ -21,16 +21,11 @@ export default function BloodDonor() {
           objectFit="cover"
         />
       </Center>
-      <FormControl   onSubmit={(values, actions) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2))
-          actions.setSubmitting(false)
-        }, 1000)
-      }} mt={4}  >
+      <FormControl mt={4} isRequired >
         <FormLabel >Full Name</FormLabel>
         <Input variant='filled' placeholder=" Name" />
       </FormControl>
-      <FormControl mt={4}>
+      <FormControl mt={4} isRequired >
         <FormLabel >State</FormLabel>
         <Select variant='filled' placeholder="Select your state" onChange={(e) => setState(e.target.value)}>
           {Object.keys(citiesAndStates).map(stateName => {
@@ -50,15 +45,15 @@ export default function BloodDonor() {
           })}
         </Select>
       </FormControl>
-      <FormControl mt={4}>
+      <FormControl mt={4} isRequired >
         <FormLabel >Pin Code</FormLabel>
         <Input variant='filled' placeholder="Pin Code" />
       </FormControl>
-      <FormControl mt={4}>
+      <FormControl mt={4} isRequired >
         <FormLabel >Phone Number</FormLabel>
         <Input variant='filled' placeholder="Phone Number" />
       </FormControl>
-      <FormControl mt={4}>
+      <FormControl mt={4} isRequired >
         <FormLabel >BloodGroup</FormLabel>
         <Select variant='filled' placeholder="Select BloodGroup">
           {bloodgroups.map(item => {
@@ -68,16 +63,14 @@ export default function BloodDonor() {
           })}
         </Select>
       </FormControl>
-      <FormControl mt={4}>
+      <FormControl mt={4} >
         <FormLabel >Mates Affiliation <small>(if any)</small></FormLabel>
         <Input variant='filled' placeholder="Mates Affiliation" />
       </FormControl>
-      <FormControl mt={4} >
+      <FormControl mt={4} isRequired >
         <FormLabel >Date of last of Blood Donation</FormLabel>
         <Input variant='filled' placeholder="Date of last of Blood Donation" type="date" />
       </FormControl>
-
-
 
     </>
   )
